@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Paper, Stepper, Step, StepLabel, Typography } from '@mui/material';
+import { Box, Paper, Stepper, Step, StepLabel, Typography, Divider } from '@mui/material';
 import CameraCapture from './CameraCapture';
 import ResultDisplay from './ResultDisplay';
-import { identifyPart } from '../../services/api';  // Add this import
+import Instructions from '../Instructions';
+import { identifyPart } from '../../services/api';
 
 const steps = ['Take Photo', 'Review Image', 'View Results'];
 
@@ -10,7 +11,7 @@ const PartIdentificationPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [identificationResult, setIdentificationResult] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);  // Add error state
+  const [error, setError] = useState<string | null>(null);
 
   const handleImageCapture = (image: string) => {
     setCapturedImage(image);
@@ -19,12 +20,10 @@ const PartIdentificationPage: React.FC = () => {
 
   const handleIdentification = async (image: string) => {
     try {
-      // Convert base64 to file
       const response = await fetch(image);
       const blob = await response.blob();
       const file = new File([blob], "captured-image.jpg", { type: "image/jpeg" });
       
-      // Call API
       const result = await identifyPart(file);
       setIdentificationResult(result);
       setActiveStep(2);
@@ -37,6 +36,7 @@ const PartIdentificationPage: React.FC = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
+      {/* Main Content Paper */}
       <Paper sx={{ p: 3, mb: 3 }}>
         <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
           {steps.map((label) => (
@@ -71,6 +71,11 @@ const PartIdentificationPage: React.FC = () => {
           </Box>
         )}
       </Paper>
+
+      {/* Instructions at the bottom */}
+      <Box sx={{ mt: 4 }}>
+        <Instructions />
+      </Box>
     </Box>
   );
 };

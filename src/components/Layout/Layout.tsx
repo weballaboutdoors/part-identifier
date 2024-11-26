@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, AppBar, Toolbar, Typography, Container, Stack } from '@mui/material';
 import logo from '../../assets/logo3.png';
+import Footer from './Footer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,7 +9,13 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box 
+      sx={{ 
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh'  // Make sure the page takes at least full viewport height
+      }}
+    >
       <AppBar position="static" sx={{ height: '210px' }}>
         <Toolbar sx={{ justifyContent: 'center' }}>
           <Stack 
@@ -49,9 +56,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Stack>
         </Toolbar>
       </AppBar>
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      
+      {/* Main content */}
+      <Container 
+        maxWidth="lg" 
+        sx={{ 
+          mt: 4, 
+          mb: 4,
+          flex: 1  // This will push the footer to the bottom
+        }}
+      >
         {children}
       </Container>
+
+      {/* Footer */}
+      <Footer />
     </Box>
   );
 };
