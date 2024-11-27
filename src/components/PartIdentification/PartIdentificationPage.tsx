@@ -6,7 +6,7 @@ import ResultDisplay from './ResultDisplay';
 import Instructions from '../Instructions';
 import { identifyPart } from '../../services/api';
 
-const steps = ['Take/Upload Photo', 'Review Image', 'View Results'];
+const steps = ['Take/Upload', 'Review Image', 'View Results'];
 
 const PartIdentificationPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -62,7 +62,7 @@ const PartIdentificationPage: React.FC = () => {
           </Typography>
         )}
 
-        {activeStep === 0 && (
+{activeStep === 0 && (
           <Stack 
             spacing={2} 
             alignItems="center"
@@ -71,6 +71,25 @@ const PartIdentificationPage: React.FC = () => {
             <CameraCapture onCapture={handleImageCapture} />
             <ImageUpload onImageSelect={handleImageUpload} />
           </Stack>
+        )}
+
+        {activeStep === 1 && capturedImage && (
+          <Box sx={{ textAlign: 'center' }}>
+            <img src={capturedImage} alt="Captured part" style={{ maxWidth: '100%', maxHeight: '400px' }} />
+            <Button 
+              variant="contained" 
+              onClick={() => handleIdentification(capturedImage)}
+              sx={{ mt: 2 }}
+            >
+              Identify Part
+            </Button>
+          </Box>
+        )}
+        {activeStep === 2 && identificationResult && (
+          <ResultDisplay 
+            identificationResult={identificationResult} 
+            onRetry={() => setActiveStep(0)} 
+          />
         )}
       </Paper>
 

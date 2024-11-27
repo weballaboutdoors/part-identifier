@@ -4,12 +4,11 @@ import { Check, Close } from '@mui/icons-material';
 import { ApiResponse } from '../../types/types';
 
 interface ResultDisplayProps {
-  image: string;
-  onConfirm: (result: ApiResponse) => void;
-  onRetry: () => void;
+  identificationResult: any;
+  onRetry: () => void;  // Add this prop
 }
 
-const ResultDisplay: React.FC<ResultDisplayProps> = ({ image, onConfirm, onRetry }) => {
+const ResultDisplay: React.FC<ResultDisplayProps> = ({ identificationResult, onRetry }) => {  // Add onRetry here
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,7 +18,7 @@ const ResultDisplay: React.FC<ResultDisplayProps> = ({ image, onConfirm, onRetry
 
     try {
       // Convert base64 image to file
-      const base64Response = await fetch(image);
+      const base64Response = await fetch(identificationResult.image);
       const blob = await base64Response.blob();
       const file = new File([blob], "captured-image.jpg", { type: 'image/jpeg' });
 
@@ -39,7 +38,7 @@ const ResultDisplay: React.FC<ResultDisplayProps> = ({ image, onConfirm, onRetry
       }
 
       const result: ApiResponse = await response.json();
-      onConfirm(result);
+      confirm('Identification successful'); // Replace Confirm with confirm
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Failed to identify part');
       console.error('Error:', error);
@@ -51,8 +50,8 @@ const ResultDisplay: React.FC<ResultDisplayProps> = ({ image, onConfirm, onRetry
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Paper elevation={3} sx={{ p: 1, mb: 2, maxWidth: 640 }}>
-        <img 
-          src={image} 
+      <img 
+          src={identificationResult.image} 
           alt="Captured part" 
           style={{ width: '100%', height: 'auto' }} 
         />
