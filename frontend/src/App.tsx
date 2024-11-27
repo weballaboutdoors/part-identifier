@@ -71,27 +71,20 @@ const theme = createTheme({
 });
 
 function App() {
-  const isGitHubPages = window.location.hostname.includes('github.io');
-  const basename = isGitHubPages ? '/part-identifier' : '';
-
-  // Remove '/part-identifier' from the pathname if it's present
-  const path = window.location.pathname.replace('/part-identifier', '');
-
   return (
-    <Router basename={basename}>
+    <Router>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout>
           <Routes>
             <Route path="/" element={<PartIdentificationPage />} />
-            <Route path="privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="terms-of-service" element={<TermsOfService />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
           </Routes>
         </Layout>
       </ThemeProvider>
     </Router>
   );
 }
-
 
 export default App;
