@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Paper, Stepper, Step, StepLabel, Typography, Divider } from '@mui/material';
+import { Box, Paper, Stepper, Step, StepLabel, Typography, Button, Stack } from '@mui/material';
 import CameraCapture from './CameraCapture';
+import ImageUpload from './ImageUpload';
 import ResultDisplay from './ResultDisplay';
 import Instructions from '../Instructions';
 import { identifyPart } from '../../services/api';
 
-const steps = ['Take Photo', 'Review Image', 'View Results'];
+const steps = ['Take/Upload Photo', 'Review Image', 'View Results'];
 
 const PartIdentificationPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -16,6 +17,16 @@ const PartIdentificationPage: React.FC = () => {
   const handleImageCapture = (image: string) => {
     setCapturedImage(image);
     setActiveStep(1);
+  };
+
+  const handleImageUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      setCapturedImage(base64String);
+      setActiveStep(1);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleIdentification = async (image: string) => {
@@ -36,7 +47,6 @@ const PartIdentificationPage: React.FC = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      {/* Main Content Paper */}
       <Paper sx={{ p: 3, mb: 3 }}>
         <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
           {steps.map((label) => (
@@ -53,22 +63,14 @@ const PartIdentificationPage: React.FC = () => {
         )}
 
         {activeStep === 0 && (
-          <CameraCapture onCapture={handleImageCapture} />
-        )}
-
-        {activeStep === 1 && capturedImage && (
-          <ResultDisplay 
-            image={capturedImage}
-            onConfirm={() => handleIdentification(capturedImage)}
-            onRetry={() => setActiveStep(0)}
-          />
-        )}
-
-        {activeStep === 2 && identificationResult && (
-          <Box>
-            <Typography variant="h6">Identified Part:</Typography>
-            <pre>{JSON.stringify(identificationResult, null, 2)}</pre>
-          </Box>
+          <Stack 
+            spacing={2} 
+            alignItems="center"
+            sx={{ width: '100%', maxWidth: 400, margin: '0 auto' }}
+          >
+            <CameraCapture onCapture={handleImageCapture} />
+            <ImageUpload onImageSelect={handleImageUpload} />
+          </Stack>
         )}
       </Paper>
 
