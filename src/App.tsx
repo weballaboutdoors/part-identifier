@@ -72,20 +72,26 @@ const theme = createTheme({
 });
 
 function App() {
+  // Add this line before the return statement
+  const basename = window.location.hostname.includes('github.io') 
+    ? '/part-identifier'
+    : '';
+
   return (
-    <Router basename="/weballaboutdoors/part-identifier">  
+    <Router basename={basename}>  {/* Update basename prop here */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout>
           <Routes>
             <Route path="/" element={<PartIdentificationPage />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="terms-of-service" element={<TermsOfService />} />
           </Routes>
         </Layout>
       </ThemeProvider>
     </Router>
   );
 }
+
 
 export default App;
