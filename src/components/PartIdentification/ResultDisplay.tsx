@@ -38,7 +38,7 @@ const ResultDisplay: React.FC<ResultDisplayProps> = ({ identificationResult, onR
       }
 
       const result: ApiResponse = await response.json();
-      confirm('Identification successful'); // Replace Confirm with confirm
+      
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Failed to identify part');
       console.error('Error:', error);
