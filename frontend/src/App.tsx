@@ -71,6 +71,7 @@ const theme = createTheme({
 });
 
 function App() {
+  console.log('App component rendering');
   return (
     <Router>
       <ThemeProvider theme={theme}>

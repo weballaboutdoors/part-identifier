@@ -9,6 +9,7 @@ import { identifyPart } from '../../services/api';
 const steps = ['Take/Upload', 'Review Image', 'View Results'];
 
 const PartIdentificationPage: React.FC = () => {
+  console.log('PartIdentificationPage rendering');
   const [activeStep, setActiveStep] = useState(0);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [identificationResult, setIdentificationResult] = useState<any>(null);

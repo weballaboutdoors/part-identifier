@@ -8,6 +8,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  console.log('Layout component rendering');
   return (
     <Box 
       sx={{ 
