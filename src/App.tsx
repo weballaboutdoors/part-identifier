@@ -72,20 +72,21 @@ const theme = createTheme({
 });
 
 function App() {
-  // Add this line before the return statement
-  const basename = window.location.hostname.includes('github.io') 
-    ? '/part-identifier'
-    : '';
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  const basename = isGitHubPages ? '/part-identifier' : '';
+
+  // Remove '/part-identifier' from the pathname if it's present
+  const path = window.location.pathname.replace('/part-identifier', '');
 
   return (
-    <Router basename={basename}>  {/* Update basename prop here */}
+    <Router basename={basename}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout>
           <Routes>
             <Route path="/" element={<PartIdentificationPage />} />
-            <Route path="privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="terms-of-service" element={<TermsOfService />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
           </Routes>
         </Layout>
       </ThemeProvider>
