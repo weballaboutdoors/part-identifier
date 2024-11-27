@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "homepage": "https://weballaboutdoors.github.io/part-identifier",
+  
   "private": true,
   "engines": {
     "node": "18.x"
