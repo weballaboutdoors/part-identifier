@@ -85,8 +85,8 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<PartIdentificationPage />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="terms-of-service" element={<TermsOfService />} />
           </Routes>
         </Layout>
       </ThemeProvider>
