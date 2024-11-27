@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';  // Update this import
 import CssBaseline from '@mui/material/CssBaseline';  // Update this import
 import Layout from './components/Layout/Layout';
@@ -73,7 +73,7 @@ const theme = createTheme({
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router basename="/weballaboutdoors/part-identifier">  
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout>
@@ -84,7 +84,7 @@ function App() {
           </Routes>
         </Layout>
       </ThemeProvider>
-    </BrowserRouter>
+    </Router>
   );
 }
 
